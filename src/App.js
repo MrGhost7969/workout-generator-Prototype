@@ -1,25 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import Workouts from './components/Workouts'
+const express = require('express')
+const app = express()
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+app.post('/', (req, res) => {
+    
+})
 
-export default App;
+app.listen(5000, () => console.log('Listening on port 5000!'));
