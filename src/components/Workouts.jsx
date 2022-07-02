@@ -10,32 +10,34 @@ import {FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 function Workouts () {
 
     const [stretches, calisthenics] = exercises;
-    const [stat, setStat] = useState([])
+    const [stat, setStat] = useState()
 
     const [stretch, setStretch] = useState(stretches.basicStretches);
     const [exercise, setExercise] = useState(calisthenics.basicCalisthenics);
 
     const [isButton, setIsButton] = useState(true);
 
-    let getTime = new Date().getHours();
+    let getTime = new Date().toLocaleTimeString();
 
     const handleClick = (e) => {
         // TODO: Output routine
         const generateCalExercise = Math.floor(Math.random() * exercise.length);
         const generateStretches = Math.floor(Math.random() * stretch.length);
 
-        // Conditions
-        getTime >= 15 ? setStat(() => (stretch[generateStretches])) : setStat(() => (exercise[generateCalExercise]));
+        getTime > 15 ? setStat(() => (stretch[generateStretches])) : setStat(() => (exercise[generateCalExercise]));
+        e.preventDefault()
 
-        // Applied when backend is implemented
-
-        // if(getTime === 1 || getTime >= 12 || getTime >= 18) {
-        //     setIsButton(true)
+        // if (getTime === 1 || getTime === 12 || getTime === 18){
+            // return () => {
+                // setIsButton(true)
+                // console.log('Ive been triggered')
+            // }
         // }
 
-        return setIsButton(false)
-            
-        e.preventDefault()
+        return () => {
+            setIsButton(false)
+            document.querySelector('.Button').style.backgroundColor = 'grey'
+        }
     }
 
     return (
@@ -47,7 +49,7 @@ function Workouts () {
                         size='large' 
                         className='Button' 
                         variant='outlined' 
-                        type='submit' 
+                        type='submit'
                         disabled={!isButton}
                     >
                         <p className='m-2 text-white'>Generate!</p>
