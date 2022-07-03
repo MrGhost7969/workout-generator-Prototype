@@ -1,11 +1,6 @@
 import React, {useState} from 'react'
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import exercises from '../exercises'
-import {Card, CardContent} from '@mui/material';
-import {TextField} from '@mui/material';
-import {FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 
 function Workouts () {
 
@@ -19,7 +14,7 @@ function Workouts () {
 
     let getTime = new Date().toLocaleTimeString();
 
-    const handleClick = (e) => {
+    function handleClick (e) {
         // TODO: Output routine
         const generateCalExercise = Math.floor(Math.random() * exercise.length);
         const generateStretches = Math.floor(Math.random() * stretch.length);
@@ -27,14 +22,11 @@ function Workouts () {
         getTime > 15 ? setStat(() => (stretch[generateStretches])) : setStat(() => (exercise[generateCalExercise]));
         e.preventDefault()
 
-        // if (getTime === 1 || getTime === 12 || getTime === 18){
-            // return () => {
-                // setIsButton(true)
-                // console.log('Ive been triggered')
-            // }
-        // }
-
-        return () => {
+        if (getTime === '12:00:00 AM' || getTime === '3:00:00 PM' || getTime === '8:00:00 PM'){
+            return () => {
+                setIsButton(true)
+            }
+        } else {
             setIsButton(false)
             document.querySelector('.Button').style.backgroundColor = 'grey'
         }
