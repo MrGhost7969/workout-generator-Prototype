@@ -1,9 +1,14 @@
-import Workouts from './components/Workouts'
 const express = require('express')
+const PORT = 3001;
 const app = express()
 
-app.post('/', (req, res) => {
-    
+// Idk how to use express lmao
+require('dotenv').config()
+app.use('/api/', require('./components/Workouts'))
+
+app.get('/api/workouts', (req, res) => {
+    res.json({message:'Hello World'})
 })
 
-app.listen(5000, () => console.log('Listening on port 5000!'));
+app.listen(PORT, () => console.log('Listening on port ' + PORT));
+
