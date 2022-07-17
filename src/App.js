@@ -1,9 +1,9 @@
+require('dotenv').config()
 const express = require('express')
 const PORT = 3001;
 const app = express()
 
 // Idk how to use express lmao
-require('dotenv').config()
 app.use('/api/', require('./components/Workouts'))
 
 app.get('/api/workouts', (req, res) => {
