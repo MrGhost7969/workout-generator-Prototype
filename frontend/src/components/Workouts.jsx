@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Button from '@mui/material/Button';
 import exercises from '../exercises'
-// import {app} from '../app'
 
 function Workouts() {
 
@@ -15,28 +14,41 @@ function Workouts() {
 
     let getTime = new Date().toLocaleTimeString();
 
-    useEffect(() => {
-        fetch("/api")
-          .then(console.log('Hello World'));
-    }, [])
-    
     function handleClick(e) {
         // TODO: Output routine
+        e.preventDefault();
         const generateCalExercise = Math.floor(Math.random() * calisthenic.length);
         const generateStretches = Math.floor(Math.random() * stretch.length);
 
         getTime > 15 ? setStat(() => (stretch[generateStretches])) : setStat(() => (calisthenic[generateCalExercise]));
-        e.preventDefault()
 
-        if (getTime === '12:00:00 AM' || getTime === '3:00:00 PM' || getTime === '8:00:00 PM') {
-            return () => {
-                setIsButton(true)
-            }
+        if (getTime === '12:00:00 AM' || getTime === '3:00:00 PM' || getTime === '5:10:00 PM') {
+            setIsButton(true)
         } else {
             setIsButton(false)
             document.querySelector('.Button').style.backgroundColor = 'grey'
         }
     }
+
+    useEffect(() => {
+        const bData = localStorage.getItem("Button")
+        const exData = localStorage.getItem('Exercise_Item')
+
+        if (bData && exData) {
+            try {
+                setIsButton(JSON.parse(bData));
+                setStat(JSON.parse(exData))
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem("Button", JSON.stringify(isButton));
+        localStorage.setItem('Exercise_Item', JSON.stringify(stat))
+        if(!isButton) document.querySelector('.Button').style.backgroundColor = 'grey'
+    }, [isButton, stat]);
 
     return (
         <>
@@ -53,9 +65,7 @@ function Workouts() {
                         <p className='m-2 text-white'>Generate!</p>
                     </Button>
                     <div>
-                        <div>
-                            <p className='mt-4'>{stat}</p>
-                        </div>
+                        <p className='mt-4'>{stat}</p>
                     </div>
                 </div>
             </form>
