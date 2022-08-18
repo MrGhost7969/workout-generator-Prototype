@@ -19,35 +19,39 @@ function Workouts() {
         e.preventDefault();
         const generateCalExercise = Math.floor(Math.random() * calisthenic.length);
         const generateStretches = Math.floor(Math.random() * stretch.length);
-
         getTime > 15 ? setStat(() => (stretch[generateStretches])) : setStat(() => (calisthenic[generateCalExercise]));
 
-        if (getTime === '12:00:00 AM' || getTime === '3:00:00 PM' || getTime === '5:10:00 PM') {
-            setIsButton(true)
-        } else {
-            setIsButton(false)
-            document.querySelector('.Button').style.backgroundColor = 'grey'
+        setIsButton(false)
+        document.querySelector('.Button').style.backgroundColor = 'grey'
+    }
+
+    function range(a, b){
+        for(let i = a; i < b.length; i++){
+            return b[i]
         }
     }
 
     useEffect(() => {
-        const bData = localStorage.getItem("Button")
-        const exData = localStorage.getItem('Exercise_Item')
-
+        let bData = localStorage.getItem("Button")
+        let exData = localStorage.getItem('Exercise_Item')
         if (bData && exData) {
             try {
+                if(getTime === range("12:00:00 AM", "12:01:00 PM") 
+                || getTime === range("3:00:00 PM", "3:01:00 PM") 
+                || getTime === range("6:00:00 PM", "6:01:00 PM")) 
+                {
+                    localStorage.clear()
+                } 
                 setIsButton(JSON.parse(bData));
-                setStat(JSON.parse(exData))
-            } catch (error) {
-                console.log(error)
-            }
+                setStat(JSON.parse(exData));
+            } catch (error) { console.log(error) }
         }
-    }, [])
+    }, [getTime])
 
     useEffect(() => {
+        if (!isButton) document.querySelector('.Button').style.backgroundColor = 'grey'
         localStorage.setItem("Button", JSON.stringify(isButton));
         localStorage.setItem('Exercise_Item', JSON.stringify(stat))
-        if(!isButton) document.querySelector('.Button').style.backgroundColor = 'grey'
     }, [isButton, stat]);
 
     return (
