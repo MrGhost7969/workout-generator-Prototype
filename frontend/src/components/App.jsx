@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from './Header';
 import '../index.css';
 import Workouts from './Workouts';
-import exercises from '../exercises';
 import Footer from './Footer';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
