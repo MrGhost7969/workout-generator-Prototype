@@ -25,8 +25,8 @@ function Workouts() {
         document.querySelector('.Button').style.backgroundColor = 'grey'
     }
 
-    function range(a, b){
-        for(let i = a; i < b.length; i++){
+    function timeRange(a, b) {
+        for (let i = a; i < b.length; i++) {
             return b[i]
         }
     }
@@ -36,12 +36,11 @@ function Workouts() {
         let exData = localStorage.getItem('Exercise_Item')
         if (bData && exData) {
             try {
-                if(getTime === range("12:00:00 AM", "12:01:00 PM") 
-                || getTime === range("3:00:00 PM", "3:01:00 PM") 
-                || getTime === range("6:00:00 PM", "6:01:00 PM")) 
-                {
+                if (getTime === timeRange("12:00:00 AM", "12:01:00 AM")
+                    || getTime === timeRange("3:00:00 PM", "3:01:00 PM")
+                    || getTime === timeRange("6:00:00 PM", "6:01:00 PM")) {
                     localStorage.clear()
-                } 
+                }
                 setIsButton(JSON.parse(bData));
                 setStat(JSON.parse(exData));
             } catch (error) { console.log(error) }
