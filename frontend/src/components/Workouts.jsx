@@ -36,15 +36,16 @@ function Workouts() {
         let exData = localStorage.getItem('Exercise_Item')
         if (bData && exData) {
             try {
+                // Add some sort of delay when getTime is true
                 if (getTime === timeRange("12:00:00 AM", "12:01:00 AM")
                     || getTime === timeRange("3:00:00 PM", "3:01:00 PM")
                     || getTime === timeRange("6:00:00 PM", "6:01:00 PM")) {
                     localStorage.clear()
-                }
+                } 
                 setIsButton(JSON.parse(bData));
                 setStat(JSON.parse(exData));
-            } catch (error) { console.log(error) }
-        }
+        } 
+        catch (error) { console.log(error) }}
     }, [getTime])
 
     useEffect(() => {
