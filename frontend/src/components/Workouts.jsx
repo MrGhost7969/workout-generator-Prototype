@@ -36,7 +36,8 @@ function Workouts() {
         let exData = localStorage.getItem('Exercise_Item')
         if (bData && exData) {
             try {
-                if(getTime === range("12:00:00 AM", "12:01:00 PM") 
+                // Add some sort of delay when getTime is true
+                if(getTime === range("12:00:00 AM", "12:01:00 AM") 
                 || getTime === range("3:00:00 PM", "3:01:00 PM") 
                 || getTime === range("6:00:00 PM", "6:01:00 PM")) 
                 {
