@@ -6,7 +6,7 @@ function Workouts() {
 
     const [stat, setStat] = useState()
     const [isButton, setIsButton] = useState(true);
-
+    
     const [stretches, calisthenics] = exercises;
 
     const stretch = stretches.basicStretches
@@ -15,37 +15,31 @@ function Workouts() {
     let getTime = new Date().toLocaleTimeString();
 
     function handleClick(e) {
-        // TODO: Output routine
         e.preventDefault();
         const generateCalExercise = Math.floor(Math.random() * calisthenic.length);
         const generateStretches = Math.floor(Math.random() * stretch.length);
         getTime > 15 ? setStat(() => (stretch[generateStretches])) : setStat(() => (calisthenic[generateCalExercise]));
-
         setIsButton(false)
-        document.querySelector('.Button').style.backgroundColor = 'grey'
     }
-
-    function timeRange(a, b) {
-        for (let i = a; i < b.length; i++) {
-            return b[i]
-        }
-    }
-
+    
     useEffect(() => {
         let bData = localStorage.getItem("Button")
         let exData = localStorage.getItem('Exercise_Item')
-        if (bData && exData) {
+        if (bData != null && exData != null) {
             try {
                 // Add some sort of delay when getTime is true
-                if (getTime === timeRange("12:00:00 AM", "12:01:00 AM")
-                    || getTime === timeRange("3:00:00 PM", "3:01:00 PM")
-                    || getTime === timeRange("6:00:00 PM", "6:01:00 PM")) {
-                    localStorage.clear()
-                } 
+                if (getTime >= "12:00:00 AM"
+                    || getTime >= "3:00:00 PM"
+                    || getTime >= "6:00:00 PM") {
+                    bData = true
+                    localStorage.removeItem("Button")
+                }
+                bData = false;
                 setIsButton(JSON.parse(bData));
                 setStat(JSON.parse(exData));
-        } 
-        catch (error) { console.log(error) }}
+            } 
+            catch (error) { console.log(error) }
+        }
     }, [getTime])
 
     useEffect(() => {
@@ -77,3 +71,12 @@ function Workouts() {
     )
 }
 export default Workouts;
+
+// -----------FOR REFERENCE--------- 
+
+// function timeRange(a, b) {
+    //     for (let i = a; i < b.length; i++) {
+    //         console.log(b[i])
+    //         return b[i]
+    //     }
+    // }
