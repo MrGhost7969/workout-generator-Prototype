@@ -28,13 +28,13 @@ function Workouts() {
         if (bData != null && exData != null) {
             try {
                 // Add some sort of delay when getTime is true
-                if (getTime >= "12:00:00 AM"
-                    || getTime >= "3:00:00 PM"
-                    || getTime >= "6:00:00 PM") {
-                    bData = true
+                if (getTime === "12:00:00 AM"
+                    || getTime === "3:00:00 PM"
+                    || getTime === "6:00:00 PM") {
                     localStorage.removeItem("Button")
+                    setIsButton(true)
                 }
-                bData = false;
+                setIsButton(false)
                 setIsButton(JSON.parse(bData));
                 setStat(JSON.parse(exData));
             } 
